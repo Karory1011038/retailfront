@@ -1,0 +1,44 @@
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-white {
+  color: $white
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.h2 {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.h3 {
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0;
+
+}
+
+.body-1 {
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0;
+}
+
+.caption {
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0;
+}
