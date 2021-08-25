@@ -14,54 +14,55 @@
             style="height: 100%;"
             class="el-menu--hide-border">
             <el-row align="middle">
-                <el-col :span="20" class="el-menu--title">
-                    username
+                <el-col style="min-height: 57px" :span="20" class="el-menu--title">
+                    <div class="text-center" v-if="loading"><span class="el-icon-loading"></span></div>
+                    <span v-else-if="customer">{{ customer.user.first_name }} {{ customer.user.last_name }}</span>
                 </el-col>
                 <el-col :span="4" class="text-center">
-                    <span @click="$emit('update:modelValue',false)" class="el-icon-close el-menu--close"></span>
+                    <span @click="closeMenu()" class="el-icon-close el-menu--close"></span>
                 </el-col>
             </el-row>
-            <a :href="item.route" class="el-menu-item no-decoration display-block text-white" @click="item.click"
+            <router-link tag="a" :to="item.route" class="el-menu-item no-decoration display-block text-white" @click.prevent="item.click"
                v-for="(item,index) in menuItems" :key="index" :index="'1-' + index" v-show="!item.hide">
                 <span :class="item.icon"></span> {{ item.name }}
-            </a>
+            </router-link>
             <el-menu-item-group title="Администрирование">
-                <a href="#" class="el-menu-item no-decoration display-block text-white" @click="item.click"
+                <router-link tag="a" :to="item.route" class="el-menu-item no-decoration display-block text-white" @click.prevent="item.click"
                    v-for="(item,index) in menuAdminItems" :key="index" :index="'1-' + (index + menuItems.length)"
                    v-show="!item.hide">
                     <span :class="item.icon"></span> {{ item.name }}
-                </a>
+                </router-link>
             </el-menu-item-group>
         </el-menu>
     </el-drawer>
-    <auth-dialog v-model="auth_modal"></auth-dialog>
 </template>
 
 <script>
-import AuthDialog from "@/components/auth/AuthDialog";
-import {ref} from "vue";
+import EventBus from "@/event-bus";
+import {useCustomer} from "@/logic/use-customer";
+import {useStore} from "vuex";
+
 
 export default {
     name: "SidebarMenu",
-    components: {AuthDialog},
     props: {
         modelValue: Boolean
     },
     emits: ['update:modelValue'],
-    setup() {
-        const auth_modal = ref(false)
+    setup(props, {emit}) {
+        const store = useStore()
         const menuItems = [
             {
                 name: 'Главная',
                 icon: 'el-icon-house',
                 hide: false,
-                route: '/'
+                route: {name:'home'}
             },
             {
                 name: 'Каталог',
                 icon: 'el-icon-goods',
                 hide: false,
-                route: '/catalog'
+                route: {name: 'catalog'}
             },
             {
                 name: 'Избранное',
@@ -84,38 +85,61 @@ export default {
             {
                 name: 'Войти',
                 icon: 'el-icon-key',
-                hide: false,
+                hide: store.state.auth.is_auth,
                 click: () => {
-                    auth_modal.value = true
+                    EventBus.$emit("show-auth-dialog")
+                    closeMenu()
                 },
-                route: '#'
+                route: {}
             },
             {
                 name: 'Выйти',
                 icon: 'el-icon-switch-button',
-                hide: false,
-                route: '#'
+                hide: !store.state.auth.is_auth,
+                click: () => {
+                    store.dispatch('auth/LOGOUT')
+                    .then(() => {
+                        window.location.reload()
+                    })
+                },
+                route: {}
             },
         ]
         const menuAdminItems = [
             {
                 name: 'Заказы сайта',
                 icon: 'el-icon-receiving',
-                hide: false
+                hide: false,
+                route: '#'
             },
             {
                 name: 'Клиенты сайта',
                 icon: 'el-icon-user',
-                hide: false
+                hide: false,
+                route: {name:'clients'}
             },
             {
                 name: 'Настройки сайта',
                 icon: 'el-icon-setting',
-                hide: false
+                hide: false,
+                route: {name:'settings'}
             },
         ]
 
-        return {menuItems, menuAdminItems, auth_modal}
+        const closeMenu = () => {
+            emit('update:modelValue', false)
+        }
+        const {customer, loading} = useCustomer()
+
+        return {
+            // Menu
+            menuItems,
+            menuAdminItems,
+            closeMenu,
+            // Customer
+            customer,
+            loading
+        }
     }
 }
 </script>

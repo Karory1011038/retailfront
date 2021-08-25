@@ -14,12 +14,36 @@
   color: $white
 }
 
+.text-secondary{
+  color: $dark-gray
+}
+
+.text-dark{
+  color: $main-dark
+}
+
+.text-danger{
+  color: $red
+}
+
+.text-success{
+  color: $success
+}
+
+.text-nowrap{
+  white-space: nowrap;
+}
+
+.text-ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .text-bold {
   font-weight: 700;
 }
 
 .h2 {
-  font-weight: bold;
   font-size: 20px;
   line-height: 24px;
 }
@@ -28,7 +52,10 @@
   font-size: 16px;
   line-height: 19px;
   letter-spacing: 0;
+}
 
+.loader-text {
+  font-size: 40px
 }
 
 .body-1 {
@@ -41,4 +68,8 @@
   font-size: 12px;
   line-height: 15px;
   letter-spacing: 0;
+}
+
+.pointer {
+  cursor: pointer;
 }

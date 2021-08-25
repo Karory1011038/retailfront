@@ -1,0 +1,9 @@
+.notification{
+  max-width: 90%;
+  cursor: pointer;
+  border: 1px solid #f56c6c;
+
+  .el-notification__content{
+    text-align: left;
+  }
+}

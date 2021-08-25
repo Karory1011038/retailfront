@@ -1,4 +1,12 @@
 $white: #fff;
+$light-gray: #DCDCDC;
+$red: #FF2F61;
+$dark-gray: #8D8D8D;
+$success: #57C554;
+$blue: #0038FF;
+$gray: #545454;
+$main-dark: #222;
+
 
 @import "custom/main";
 @import "custom/btn-menu";
@@ -8,3 +16,5 @@ $white: #fff;
 @import "custom/grid";
 @import "custom/size";
 @import "custom/auth";
+@import "custom/notification";
+@import "custom/position";
