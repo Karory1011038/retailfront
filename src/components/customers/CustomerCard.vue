@@ -19,7 +19,14 @@
                     <span class="el-icon-s-operation h2 pointer"></span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item v-for="action in actions" :key="action.id">
+                            <el-dropdown-item
+                                :class="action.class"
+                                v-for="(action,index) in actions"
+                                :key="index"
+                                @click="action.click"
+                                :icon="action.icon"
+                                class="text-16px"
+                            >
                                 {{ action.name }}
                             </el-dropdown-item>
                         </el-dropdown-menu>
@@ -55,6 +62,7 @@
 </template>
 
 <script>
+
 export default {
     name: "CustomerCard",
     props: {
@@ -65,16 +73,40 @@ export default {
     setup() {
         const actions = [
             {
-                id: 1,
-                name: 'action 1'
+                name: 'Пополнить баланс',
+                icon: 'el-icon-circle-plus',
+                click:() => {}
             },
             {
-                id: 2,
-                name: 'action 2'
+                name: 'Списать с баланса',
+                icon: 'el-icon-remove',
+                click:() => {}
             },
             {
-                id: 2,
-                name: 'action 2'
+                name: 'Добавить запрос на оплату',
+                icon: 'el-icon-s-finance',
+                click:() => {}
+            },
+            {
+                name: 'Открыть альбомы',
+                icon: 'el-icon-picture',
+                click:() => {}
+            },
+            {
+                name: 'История баланса',
+                icon: 'el-icon-time',
+                click:() => {}
+            },
+            {
+                name: 'Платежи',
+                icon: 'el-icon-money',
+                click:() => {}
+            },
+            {
+                name: 'Удалить',
+                icon: 'el-icon-delete-solid',
+                class: 'text-danger',
+                click:() => {}
             },
         ]
         return {actions}

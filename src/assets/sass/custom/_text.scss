@@ -40,7 +40,12 @@
 }
 
 .text-bold {
-  font-weight: 700;
+  font-weight: 700 !important;
+}
+
+.h1 {
+  font-size: 24px;
+  line-height: 24px;
 }
 
 .h2 {
@@ -52,6 +57,14 @@
   font-size: 16px;
   line-height: 19px;
   letter-spacing: 0;
+}
+
+.text-16px{
+  font-size: 16px;
+}
+
+.text-60px{
+  font-size: 60px;
 }
 
 .loader-text {

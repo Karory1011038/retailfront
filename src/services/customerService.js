@@ -5,8 +5,12 @@ export default {
         return api.get(`customers/current/`)
             .then(response => response.data)
     },
-    fetchCustomers() {
-        return api.get(`customers/`)
+    fetchCustomers(params) {
+        return api.get(`customers/`,{params})
             .then(response => response.data)
     },
+    getPermissions(){
+        return api.get(`permissions/`)
+            .then(response => response.data)
+    }
 }

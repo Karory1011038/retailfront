@@ -116,7 +116,7 @@ export default {
                 name: 'Клиенты сайта',
                 icon: 'el-icon-user',
                 hide: false,
-                route: {name:'clients'}
+                route: {name:'customers'}
             },
             {
                 name: 'Настройки сайта',

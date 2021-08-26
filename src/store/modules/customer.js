@@ -4,8 +4,7 @@ import errorMsg from "@/logic/error-msg";
 const state = {
     current: null,
     loading_current: false,
-    customers:[],
-    loading_customers:false,
+    permissions: {}
 }
 
 const getters = {}
@@ -29,20 +28,28 @@ const actions = {
                 })
         })
     },
-    async GET_CUSTOMERS({state, commit}) {
+    async GET_CUSTOMERS(store,params) {
         return new Promise((resolve, reject) => {
-            state.loading_customers = true
-            customerService.fetchCustomers()
+            customerService.fetchCustomers(params)
                 .then((data) => {
-                    commit('SET_CUSTOMERS', data)
                     resolve(data)
                 })
                 .catch((err) => {
-                    errorMsg('Не получить список пользователей', err)
+                    errorMsg('Не удалось получить список пользователей', err)
                     reject()
                 })
-                .finally(() => {
-                    state.loading_customers = false
+        })
+    },
+    async GET_PERMISSIONS({commit}) {
+        return new Promise((resolve, reject) => {
+            customerService.getPermissions()
+                .then((data) => {
+                    commit('SET_PERMISSIONS', data)
+                    resolve(data)
+                })
+                .catch((err) => {
+                    errorMsg('Не получить список разрешений', err)
+                    reject()
                 })
         })
     }
@@ -52,8 +59,8 @@ const mutations = {
     SET_CURRENT(state, data) {
         state.current = data
     },
-    SET_CUSTOMERS(state, data) {
-        state.customers = data
+    SET_PERMISSIONS(state, data) {
+        state.permissions = data
     },
 }
 

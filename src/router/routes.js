@@ -11,7 +11,8 @@ const Favorites = () => import(/* webpackChunkName: "favorites" */ '@/pages/Favo
 const Orders = () => import(/* webpackChunkName: "orders" */ '@/pages/Orders')
 const Cart = () => import(/* webpackChunkName: "cart" */ '@/pages/Cart')
 const Settings = () => import(/* webpackChunkName: "settings" */ '@/pages/Settings')
-const Clients = () => import(/* webpackChunkName: "settings" */ '@/pages/Clients')
+const Customers = () => import(/* webpackChunkName: "settings" */ '@/pages/Customers')
+const ChangeCustomer = () => import(/* webpackChunkName: "settings" */ '@/pages/ChangeCustomer')
 
 const routes = [
     {
@@ -19,39 +20,45 @@ const routes = [
         component: MainLayout,
         children: [
             {
-                name:'home',
-                path:'/',
+                name: 'home',
+                path: '/',
                 component: Home
             },
             {
-                name:'catalog',
-                path:'/catalog',
+                name: 'catalog',
+                path: '/catalog',
                 component: Catalog
             },
             {
-                name:'favorites',
-                path:'/favorites',
+                name: 'favorites',
+                path: '/favorites',
                 component: Favorites
             },
             {
-                name:'orders',
-                path:'/orders/:id',
+                name: 'orders',
+                path: '/orders/:id',
                 component: Orders
             },
             {
-                name:'cart',
-                path:'/cart',
+                name: 'cart',
+                path: '/cart',
                 component: Cart
             },
             {
-                name:'settings',
-                path:'/settings',
+                name: 'settings',
+                path: '/settings',
                 component: Settings
             },
             {
-                name:'clients',
-                path:'/clients',
-                component: Clients
+                name: 'customers',
+                path: '/customers',
+                component: Customers,
+            },
+            {
+                name: 'change-customer',
+                path: '/customers/:id',
+                props: true,
+                component: ChangeCustomer
             },
         ]
     }
