@@ -1,35 +1,15 @@
-import customerService from "@/services/customerService"
+import productService from "@/services/customerService"
 import errorMsg from "@/logic/error-msg";
 
 const state = {
-    current: null,
-    loading_current: false,
 }
 
 const getters = {}
 
 const actions = {
-    async GET_CURRENT({state, commit}) {
-        return new Promise((resolve, reject) => {
-            state.loading_current = true
-            customerService.getCurrent()
-                .then((data) => {
-                    commit('SET_CURRENT', data)
-                    resolve(data)
-                })
-                .catch((err) => {
-                    errorMsg('Не получить данные профиля', err)
-                    commit('SET_CURRENT', null)
-                    reject()
-                })
-                .finally(() => {
-                    state.loading_current = false
-                })
-        })
-    },
     async UPDATE(store,payload) {
         return new Promise((resolve, reject) => {
-            customerService.update(payload)
+            productService.update(payload)
                 .then((data) => {
                     resolve(data)
                 })
@@ -41,7 +21,7 @@ const actions = {
     },
     async POST(store,payload) {
         return new Promise((resolve, reject) => {
-            customerService.post(payload)
+            productService.post(payload)
                 .then((data) => {
                     resolve(data)
                 })
@@ -51,10 +31,10 @@ const actions = {
                 })
         })
     },
-    async GET_CUSTOMER({state},id) {
+    async GET_PRODUCT({state},id) {
         return new Promise((resolve, reject) => {
             state.loading_current = true
-            customerService.getCustomer(id)
+            productService.getProduct(id)
                 .then((data) => {
                     resolve(data)
                 })
@@ -64,9 +44,21 @@ const actions = {
                 })
         })
     },
-    async GET_CUSTOMERS(store,params) {
+    async SEARCH(store,payload) {
         return new Promise((resolve, reject) => {
-            customerService.fetchCustomers(params)
+            productService.search(payload)
+                .then((data) => {
+                    resolve(data)
+                })
+                .catch((err) => {
+                    errorMsg('По данному запросу ничего не найдено', err)
+                    reject()
+                })
+        })
+    },
+    async GET_PRODUCTS(store,params) {
+        return new Promise((resolve, reject) => {
+            productService.fetchProducts(params)
                 .then((data) => {
                     resolve(data)
                 })
@@ -79,9 +71,6 @@ const actions = {
 }
 
 const mutations = {
-    SET_CURRENT(state, data) {
-        state.current = data
-    },
 }
 
 export default {

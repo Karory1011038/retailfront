@@ -10,8 +10,9 @@ module.exports = {
       proxy: {
         '/api*': {
           // Forward frontend dev server request for /api to django dev server
-          target: 'http://47e6-85-140-4-43.ngrok.io/',
+          target: 'http://test.posred.xyz:8000/',
         }
       }
     }
 }
+
